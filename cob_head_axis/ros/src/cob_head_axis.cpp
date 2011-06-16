@@ -435,7 +435,7 @@ class NodeClass
 					}
 					else
 					{
-						ROS_INFO("...axis still moving to point[%d]",traj_point_nr_);
+						ROS_DEBUG("...axis still moving to point[%d]",traj_point_nr_);
 					}
 			    }
 			    else if (operationMode_ == "velocity")
