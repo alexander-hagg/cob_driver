@@ -130,7 +130,11 @@ public:
 
   void operationmode_callback(const std_msgs::StringPtr& message)
   {
-    current_operation_mode_ = message->data;
+	if(current_operation_mode_ != message->data)
+	{
+		std::cout << "Change of operation mode to " << message->data <<"\n";
+	    	current_operation_mode_ = message->data;
+	}
   }
   void state_callback(const pr2_controllers_msgs::JointTrajectoryControllerStatePtr& message)
   {
@@ -200,11 +204,11 @@ public:
 	  watchdog_counter = 0;
 			if (as_.isPreemptRequested() || !ros::ok() || current_operation_mode_ != "velocity")
 			{
-				
+				std::cout << "My current operation mode is: " << current_operation_mode_ << "\n";
 				// set the action state to preempted
 				executing_ = false;
 				traj_generator_->isMoving = false;
-				//as_.setPreempted();
+				as_.setAborted();
 				ROS_INFO("Preempted trajectory action");
 				return;
 			}
